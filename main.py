@@ -41,9 +41,9 @@ class BookSearchApp:
             if search_query in book.lower():
                 content = data["content"]
                 image_path = data["image_path"]
-                image = ImageTk.PhotoImage(Image.open(image_path).resize((100, 100)))  # اندازه عکس را می‌توانید به دلخواه خود تغییر دهید
+                image = ImageTk.PhotoImage(Image.open(image_path).resize((100, 100)))
                 book_button = ttk.Button(self.result_frame, text=book, image=image, compound=tk.TOP, command=lambda content=content: self.show_content(content))
-                book_button.image = image  # نکته: برای جلوگیری از حذف تصویر توسط garbage collector، باید این خط را اضافه کنید
+                book_button.image = image  
                 book_button.pack(side=tk.LEFT)
 
     def show_content(self, content):
