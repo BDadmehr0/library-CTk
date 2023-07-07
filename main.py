@@ -15,8 +15,13 @@ class BookSearchApp:
 
         self.root = cctk.CTk()
         self.root.title("Book Search App")
-        self.root.geometry('500x600')
-        self.root.resizable(width=False, height=False)
+        self.root.geometry('600x700')
+
+        self.exit_btn = cctk.CTkButton(self.root, text="Exit", command=self.exit, width=50, corner_radius=0, font=('bold', 15))
+        self.exit_btn.pack(anchor='nw')
+
+        self.about_btn = cctk.CTkButton(self.root, text="About", command=self.about_panel, width=50, corner_radius=0, font=('bold', 15))
+        self.about_btn.pack(anchor='nw')
 
         self.search_frame = cctk.CTkFrame(self.root)
         self.search_frame.pack(padx=12,pady=10,anchor='e')
@@ -27,11 +32,35 @@ class BookSearchApp:
         self.search_button = cctk.CTkButton(self.search_frame, text="Search", command=self.search_books, width=20, corner_radius=0, font=('bold', 15))
         self.search_button.pack(anchor='e')
 
+
         self.result_frame = ttk.Frame(self.root)
         self.result_frame.pack()
 
-        self.content_text = tk.Text(self.root, height=100, width=100, font=('roboto', 15))
+        self.content_text = tk.Text(self.root, width=1000, height=1000, font=('roboto', 15))
         self.content_text.pack()
+
+
+    def exit(self):
+        exit()
+
+    def exit_about(self):
+        self.about_root.destroy()
+
+    def about_panel(self):
+        self.about_root = cctk.CTk()
+        self.about_root.geometry('400x350')
+        self.root.title("About")
+
+        self.exit_btn = cctk.CTkButton(self.about_root, text="Close", command=self.exit_about, width=50, corner_radius=0, font=('bold', 15))
+        self.exit_btn.pack(anchor='nw')
+
+        self.about_root_frame = cctk.CTkFrame(self.about_root)
+        self.about_root_frame.pack(padx=10, pady=12)
+
+        self.about_text = cctk.CTkLabel(self.about_root_frame, text='پروژه مهندسی کامپیتر حسین دربندی', font=('roboto', 15))
+        self.about_text.pack(padx=10, pady=12)
+
+        self.about_root.mainloop()
 
     def search_books(self):
         search_query = self.search_entry.get().lower()
@@ -41,10 +70,10 @@ class BookSearchApp:
             if search_query in book.lower():
                 content = data["content"]
                 image_path = data["image_path"]
-                image = ImageTk.PhotoImage(Image.open(image_path).resize((128, 128 )))
-                book_button = ttk.Button(self.result_frame, text=book, image=image, compound=tk.TOP, command=lambda content=content: self.show_content(content))
-                book_button.image = image  
-                book_button.pack(side=tk.LEFT)
+                image = ImageTk.PhotoImage(Image.open(image_path).resize((128, 128)))  # اندازه عکس را می‌توانید به دلخواه خود تغییر دهید
+                book_button = cctk.CTkButton(self.result_frame, text=book, image=image, compound=tk.TOP, command=lambda content=content: self.show_content(content), corner_radius=0)
+                book_button.image = image  # نکته: برای جلوگیری از حذف تصویر توسط garbage collector، باید این خط را اضافه کنید
+                book_button.pack(side=tk.LEFT, pady=10, padx=10)
 
     def show_content(self, content):
         self.content_text.delete("1.0", tk.END)
