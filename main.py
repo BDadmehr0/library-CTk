@@ -51,13 +51,13 @@ class BookSearchApp:
         self.about_root.geometry('400x350')
         self.root.title("About")
 
-        self.exit_btn = cctk.CTkButton(self.about_root, text="Close", command=self.exit_about, width=50, corner_radius=0, font=('bold', 15))
+        self.exit_btn = cctk.CTkButton(self.about_root, text="Exit", command=self.exit_about, width=50, corner_radius=0, font=('bold', 15))
         self.exit_btn.pack(anchor='nw')
 
         self.about_root_frame = cctk.CTkFrame(self.about_root)
         self.about_root_frame.pack(padx=10, pady=12)
 
-        self.about_text = cctk.CTkLabel(self.about_root_frame, text='پروژه مهندسی کامپیتر حسین دربندی', font=('roboto', 15))
+        self.about_text = cctk.CTkLabel(self.about_root_frame, text='دانشگاه تهران مرکزی\nدانشجو حسین دربندی\nمهندسی نرم افزار ۱۴۰۲', font=('roboto', 25))
         self.about_text.pack(padx=10, pady=12)
 
         self.about_root.mainloop()
